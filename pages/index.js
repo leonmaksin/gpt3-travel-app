@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import leonLogo from '../assets/leon-logo.png';
 import { useState } from 'react';
+import LocationChooser from './map.js';
 
 const Home = () => {
   const [userInput, setUserInput] = useState('');
@@ -43,6 +44,7 @@ const Home = () => {
             <h2>Find things to do and places to see when traveling, or even in your home town</h2>
           </div>
         </div>
+        <LocationChooser />
         <div className="prompt-container">
           <textarea
             placeholder="start typing here"
