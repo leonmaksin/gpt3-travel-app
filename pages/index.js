@@ -2,14 +2,14 @@ import Head from 'next/head';
 import Image from 'next/image';
 import leonLogo from '../assets/leon-logo.png';
 import { useRef, useEffect, useState } from 'react';
-import LocationChooser from './map.js';
+// import LocationChooser from './map.js';
 
 const defaultLocation = {lat: -34.397, lng: 150.644}
 
 const Home = () => {
-  const [userInput, setUserInput] = useState('');
   const [apiOutput, setApiOutput] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [category, setCategory] = useState('travel');
   const [locationText, setLocationText] = useState('');
 
   const mapContainer = useRef(null);
@@ -19,6 +19,8 @@ const Home = () => {
 
   const callGenerateEndpoint = async () => {
     setIsGenerating(true);
+
+    const aiInput = `Find me ${category} recommendations in ${locationText}`;
     
     console.log("Calling OpenAI...")
     const response = await fetch('/api/generate', {
@@ -26,12 +28,12 @@ const Home = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ userInput }),
+      body: JSON.stringify({ aiInput }),
     });
 
     const data = await response.json();
     const { output } = data;
-    console.log("OpenAI replied...", output.text)
+    console.log("OpenAI replied...", output.text);
 
     setApiOutput(`${output.text}`);
     setIsGenerating(false);
@@ -101,7 +103,11 @@ const Home = () => {
         <div className="prompt-container">
           <div className="prompt-box">
             <span>Find me </span>
-            <select className="prompt-text prompt-dropdown">
+            <select
+              className="prompt-text prompt-dropdown"
+              value = { category }
+              onChange = { (event) => setCategory(event.target.value) }
+            >
               <option value="travel">travel</option>
               <option value="food">food</option>
               <option value="tourism">tourism</option>
