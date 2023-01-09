@@ -23,6 +23,10 @@ const LocationChooser = () => {
         navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
     };
 
+    const getCurrentLocation = () => {
+        return location;
+    };
+
     useEffect(() => {
         // create a new map
         const map = new google.maps.Map(mapContainer.current, {

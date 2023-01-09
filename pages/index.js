@@ -1,13 +1,21 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import leonLogo from '../assets/leon-logo.png';
-import { useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import LocationChooser from './map.js';
+
+const defaultLocation = {lat: -34.397, lng: 150.644}
 
 const Home = () => {
   const [userInput, setUserInput] = useState('');
-  const [apiOutput, setApiOutput] = useState('')
-  const [isGenerating, setIsGenerating] = useState(false)
+  const [apiOutput, setApiOutput] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [locationText, setLocationText] = useState('');
+
+  const mapContainer = useRef(null);
+  const [location, setLocation] = useState(defaultLocation);
+  const [marker, setMarker] = useState(null);
+  const [map, setMap] = useState(null);
 
   const callGenerateEndpoint = async () => {
     setIsGenerating(true);
@@ -29,9 +37,54 @@ const Home = () => {
     setIsGenerating(false);
   }
 
-  const onUserChangedText = (event) => {
-    setUserInput(event.target.value);
+  const getLocation = () => {
+      const successCallback = (position) => {
+          const newLocation = {lat: position.coords.latitude, lng: position.coords.longitude}
+          setLocation(newLocation)
+      };
+        
+      const errorCallback = (error) => {
+          setLocation(defaultLocation)
+      };
+      
+      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
   };
+
+  useEffect(() => {
+    // create a new map
+    const map = new google.maps.Map(mapContainer.current, {
+        center: location,
+        zoom: 8
+    });
+
+    // create a new marker
+    const marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        title: 'Choose location'
+    });
+
+    setMarker(marker);
+    setMap(map);
+
+    // add a listener to the map that waits for the user to click a location
+    google.maps.event.addListener(map, 'click', function(event) {
+        // update the stored location to the clicked location
+        setLocation(event.latLng);
+    });
+    }, []); // the empty array ensures that the effect only runs once
+
+    useEffect(() => {
+        getLocation();
+    }, []);
+
+    useEffect(() => {
+        if (marker && map) {
+            marker.setPosition(location);
+            map.setCenter(location);
+            setLocationText("Hello there!");
+        }
+    }, [location]);
 
   return (
     <div className="root">
@@ -44,14 +97,23 @@ const Home = () => {
             <h2>Find things to do and places to see when traveling, or even in your home town</h2>
           </div>
         </div>
-        <LocationChooser />
+        <div ref={mapContainer} style={{ width: '400px', height: '400px' }} />
         <div className="prompt-container">
-          <textarea
-            placeholder="start typing here"
-            className="prompt-box"
-            value={userInput}
-            onChange={onUserChangedText}
-          />
+          <div className="prompt-box">
+            <span>Find me </span>
+            <select className="prompt-text prompt-dropdown">
+              <option value="travel">travel</option>
+              <option value="food">food</option>
+              <option value="tourism">tourism</option>
+              <option value="activity">activity</option>
+            </select>
+            <span> recommendations in </span>
+            <textarea
+              className="prompt-text prompt-location"
+              value={locationText}
+              onChange={ (event) => setLocationText(event.target.value) }
+            />
+          </div>
         </div>
         <div className="prompt-buttons">
           <a
