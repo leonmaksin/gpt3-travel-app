@@ -4,7 +4,10 @@ import leonLogo from '../assets/leon-logo.png';
 import { useRef, useEffect, useState } from 'react';
 // import LocationChooser from './map.js';
 
-const defaultLocation = {lat: -34.397, lng: 150.644}
+var countries = require("i18n-iso-countries");
+countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
+
+const defaultLocation = {lat: -34.397, lng: 150.644};
 
 const Home = () => {
   const [apiOutput, setApiOutput] = useState('');
@@ -39,7 +42,7 @@ const Home = () => {
     setIsGenerating(false);
   }
 
-  const getLocation = () => {
+  const getInitialLocation = () => {
       const successCallback = (position) => {
           const newLocation = {lat: position.coords.latitude, lng: position.coords.longitude}
           setLocation(newLocation)
@@ -51,6 +54,38 @@ const Home = () => {
       
       navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
   };
+
+
+
+  const setClosestCity = () => {
+    // Search for cities within a 50 kilometer radius of the coordinates
+    var radius = 10; // 10 kilometers
+    const locationJSON = location//.toJSON()
+    var url = 'http://api.geonames.org/findNearbyPostalCodes?' +
+              'lat=' + locationJSON.lat +
+              '&lng=' + locationJSON.lng +
+              '&radius=' + radius +
+              '&username=lmaksin';
+
+    // Make a request to the URL
+    fetch(url)
+      .then(function(response) {
+        return response.text();
+      })
+      .then(function(text) {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(text,"text/xml");
+        const closest = xmlDoc.getElementsByTagName("code")[0];
+        if (closest) {
+          var name = closest.getElementsByTagName("name")[0].textContent;
+          var country = closest.getElementsByTagName("countryCode")[0].textContent;
+          const result = `${name}, ${countries.getName(country, "en")}`;
+          setLocationText(result);
+        } else {
+          setLocationText('');
+        }
+      });
+  }
 
   useEffect(() => {
     // create a new map
@@ -72,21 +107,21 @@ const Home = () => {
     // add a listener to the map that waits for the user to click a location
     google.maps.event.addListener(map, 'click', function(event) {
         // update the stored location to the clicked location
-        setLocation(event.latLng);
+        setLocation(event.latLng.toJSON());
     });
-    }, []); // the empty array ensures that the effect only runs once
+  }, []); // the empty array ensures that the effect only runs once
 
-    useEffect(() => {
-        getLocation();
-    }, []);
+  useEffect(() => {
+      getInitialLocation();
+  }, []);
 
-    useEffect(() => {
-        if (marker && map) {
-            marker.setPosition(location);
-            map.setCenter(location);
-            setLocationText("Hello there!");
-        }
-    }, [location]);
+  useEffect(() => {
+      if (marker && map) {
+          marker.setPosition(location);
+          map.setCenter(location);
+          setClosestCity();
+      }
+  }, [location]);
 
   return (
     <div className="root">
