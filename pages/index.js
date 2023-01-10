@@ -131,7 +131,7 @@ const Home = () => {
             <h1>Travel Finder</h1>
           </div>
           <div className="header-subtitle">
-            <h2>Find things to do and places to see when traveling, or even in your home town</h2>
+            <h2>Let GPT-3 find you things to do and places to see anywhere! Use when traveling, or even in your home town 😁</h2>
           </div>
         </div>
         <div ref={mapContainer} style={{ width: '400px', height: '400px' }} />
