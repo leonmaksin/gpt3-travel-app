@@ -178,7 +178,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        {apiOutput && (
+        {/* {apiOutput && (
         <div className="output">
           <div className="output-header-container">
             <div className="output-header">
@@ -188,6 +188,12 @@ const Home = () => {
           <div className="output-content">
             <p>{apiOutput}</p>
           </div>
+        </div>
+        )} */}
+        {apiOutput && (
+        <div className="prompt-box">
+          <p className="output-text">Sure! I've thought up a few options:</p>
+          <p className="output-text">{apiOutput}</p>
         </div>
         )}
       </div>

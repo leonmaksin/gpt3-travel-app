@@ -458,3 +458,7 @@ textarea {
     border-radius: 10px;
     opacity: 80%;
 }
+
+.output-text {
+    margin: 0px;
+}
