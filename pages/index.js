@@ -10,6 +10,14 @@ var countries = require("i18n-iso-countries");
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 
 const defaultLocation = {lat: 40.7128, lng: -74.0060};
+const categoryOptions = [
+  "travel",
+  "food",
+  "tourism",
+  "activity",
+  "bar",
+  "hotel"
+]
 
 const Home = () => {
   const [apiOutput, setApiOutput] = useState('');
@@ -146,17 +154,17 @@ const Home = () => {
               value = { category }
               onChange = { (event) => setCategory(event.target.value) }
             >
-              <option value="travel">travel</option>
-              <option value="food">food</option>
-              <option value="tourism">tourism</option>
-              <option value="activity">activity</option>
+              { categoryOptions.map( (category) => {
+                return <option value={category}>{category}</option>
+              }) }
             </select>
             <span> recommendations in </span>
             <textarea
               className="prompt-text prompt-location"
               value={locationText}
               onChange={ (event) => setLocationText(event.target.value) }
-              ref= { textAreaRef }
+              ref={textAreaRef}
+              maxlength="50"
             />
             <div className="prompt-buttons">
               <a
