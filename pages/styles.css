@@ -10,7 +10,9 @@ body {
     display: flex;
     place-content: center flex-start;
     align-items: center;
-    background-color: rgb(0, 0, 0);
+    background-color: #F7D4BC;
+    /* background-image: url('../assets/map-background.png'); */
+    background-size: 100% 100%;
     flex-flow: column nowrap;
     gap: 10px;
     height: 100vh;
@@ -27,12 +29,12 @@ body {
     flex-flow: column nowrap;
     gap: 10px;
     height: fit-content;
-    max-width: 975px;
+    max-width: 400px;
     overflow: auto;
     padding: 50px;
     position: relative;
     width: auto;
-    gap: 64px;
+    /* gap: 64px; */
 }
 
 .header {    
@@ -40,7 +42,7 @@ body {
     flex-direction: column;
     width: 100%;
     align-items: center;
-    color: #FFF
+    color: #2C1A1D
 }
 
 .header-title {
@@ -63,7 +65,7 @@ body {
     font-style: normal;
     font-weight: 400;
     line-height: 1.4em;
-    color: rgba(255, 255, 255, 0.75);
+    color: #6C534E;
 }
 
 .prompt-container {
@@ -75,30 +77,27 @@ body {
     gap: 16px;
     height: min-content;
     padding: 0px;
-    width: min-content;
+    /* width: min-content; */
 }
 
 .prompt-box {
-    border-bottom-width: 1px;
     border-color: rgba(255, 255, 255, 0.1);
-    border-left-width: 1px;
-    border-right-width: 1px;
+    border-width: 1px;
     border-style: solid;
-    border-top-width: 1px;
     place-content: flex-start;
-    align-items: flex-start;
-    background-color: rgba(255, 255, 255, 0.05);
+    align-items: center;
+    background-color: rgba(248, 102, 102, 0.05);
     border-radius: 16px;
     display: flex;
     flex: 0 0 auto;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     gap: 10px;
-    height: 50px;
+    /* height: 50px; */
     overflow: hidden;
     padding: 20px;
     position: relative;
-    width: 900px;
-    max-width: 1200px;
+    /* width: 900px; */
+    /* max-width: 1200px; */
     will-change: transform;
     overflow: auto;
     outline: none;
@@ -108,7 +107,7 @@ body {
     letter-spacing: 0px;
     line-height: 1.6em;
     text-align: start;
-    color: rgba(255, 255, 255, 0.75);
+    color: #6C534E;
     text-decoration: none;
     text-transform: none;
 }
@@ -119,17 +118,14 @@ body {
 }
 
 .prompt-location {
-    width: 550px;
-    height: 25px;
+    width: 70%;
+    /* height: 25px; */
 }
 
 .prompt-text {
-    border-bottom-width: 1px;
     border-color: rgba(255, 255, 255, 0.1);
-    border-left-width: 1px;
-    border-right-width: 1px;
+    border-width: 1px;
     border-style: solid;
-    border-top-width: 1px;
     place-content: flex-start;
     align-items: flex-start;
     background-color: rgba(255, 255, 255, 0.05);
@@ -151,7 +147,7 @@ body {
     letter-spacing: 0px;
     line-height: 1.6em;
     text-align: start;
-    color: rgba(255, 255, 255, 0.75);
+    color: #6C534E;
     text-decoration: none;
     text-transform: none;
 }
@@ -178,7 +174,7 @@ textarea {
     overflow: hidden;
     padding: 0px;
     position: relative;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .key-stroke {
@@ -209,21 +205,24 @@ textarea {
 }
 
 .or p {
-    color: rgba(255, 255, 255, 0.25)
+    color: rgba(161, 45, 45, 0.25)
 }
 
 .generate-button {
     place-content: flex-start;
     align-items: flex-start;
-    background-color: rgb(255, 79, 18);
-    border-radius: 100px;
+    border-color: rgba(255, 255, 255, 0.1);
+    border-width: 1px;
+    border-style: solid;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
     display: flex;
     flex: 0 0 auto;
     flex-flow: column nowrap;
     gap: 10px;
     height: min-content;
     overflow: hidden;
-    padding: 16px 24px;
+    padding: 4px;
     position: relative;
     text-decoration: none;
     width: min-content;
@@ -262,12 +261,9 @@ textarea {
 }
 
 .badge-container a {
-    border-bottom-width: 1px;
     border-color: rgba(255, 255, 255, 0.1);
-    border-left-width: 1px;
-    border-right-width: 1px;
+    border-width: 1px;
     border-style: solid;
-    border-top-width: 1px;
     background-color: rgb(255, 255, 255);
     border-radius: 54.3478% / 238.095%;
     filter: grayscale(1);
@@ -378,7 +374,7 @@ textarea {
 
     .prompt-container {
         max-width: 600px;
-        width: 100%;
+        /* width: 100%; */
     }
 
     .prompt-box {
@@ -456,4 +452,9 @@ textarea {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.google-map {
+    border-radius: 10px;
+    opacity: 80%;
 }

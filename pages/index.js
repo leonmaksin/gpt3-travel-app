@@ -1,13 +1,15 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import leonLogo from '../assets/leon-logo.png';
+import paperPlane from '../assets/paper-plane.png';
 import { useRef, useEffect, useState } from 'react';
 // import LocationChooser from './map.js';
+import useAutosizeTextArea from "./tools/useAutosizeTextArea";
 
 var countries = require("i18n-iso-countries");
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 
-const defaultLocation = {lat: -34.397, lng: 150.644};
+const defaultLocation = {lat: 40.7128, lng: -74.0060};
 
 const Home = () => {
   const [apiOutput, setApiOutput] = useState('');
@@ -54,8 +56,6 @@ const Home = () => {
       
       navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
   };
-
-
 
   const setClosestCity = () => {
     // Search for cities within a 50 kilometer radius of the coordinates
@@ -123,6 +123,9 @@ const Home = () => {
       }
   }, [location]);
 
+  const textAreaRef = useRef(null);
+  useAutosizeTextArea(textAreaRef.current, locationText);
+
   return (
     <div className="root">
       <div className="container">
@@ -134,7 +137,7 @@ const Home = () => {
             <h2>Let GPT-3 find you things to do and places to see anywhere! Use when traveling, or even in your home town 😁</h2>
           </div>
         </div>
-        <div ref={mapContainer} style={{ width: '400px', height: '400px' }} />
+        <div ref={mapContainer} style={{ width: '400px', height: '400px' }} className="google-map" />
         <div className="prompt-container">
           <div className="prompt-box">
             <span>Find me </span>
@@ -153,18 +156,19 @@ const Home = () => {
               className="prompt-text prompt-location"
               value={locationText}
               onChange={ (event) => setLocationText(event.target.value) }
+              ref= { textAreaRef }
             />
-          </div>
-        </div>
-        <div className="prompt-buttons">
-          <a
-            className={isGenerating ? 'generate-button loading' : 'generate-button'}
-            onClick={callGenerateEndpoint}
-          >
-            <div className="generate">
-            {isGenerating ? <span className="loader"></span> : <p>Generate</p>}
+            <div className="prompt-buttons">
+              <a
+                className={isGenerating ? 'generate-button loading' : 'generate-button'}
+                onClick={callGenerateEndpoint}
+              >
+                <div className="generate">
+                {isGenerating ? <span className="loader"></span> : <Image src={paperPlane} alt="Send" width="25" />}
+                </div>
+              </a>
             </div>
-          </a>
+          </div>
         </div>
         {apiOutput && (
         <div className="output">
