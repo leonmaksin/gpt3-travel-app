@@ -178,18 +178,6 @@ const Home = () => {
             </div>
           </div>
         </div>
-        {/* {apiOutput && (
-        <div className="output">
-          <div className="output-header-container">
-            <div className="output-header">
-              <h3>Output</h3>
-            </div>
-          </div>
-          <div className="output-content">
-            <p>{apiOutput}</p>
-          </div>
-        </div>
-        )} */}
         {apiOutput && (
         <div className="prompt-box">
           <p className="output-text">Sure! I've thought up a few options:</p>
