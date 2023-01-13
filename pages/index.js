@@ -142,8 +142,8 @@ const Home = () => {
   return (
     <div className="root">
       <Head>
-        {/* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgjUuppkIs1PUMH5pde3hNl9ACfCJGc4A"></script> */}
         <link rel="icon" type="image/png" href="../paper-plane.png"></link>
+        <title>Travel Finder</title>
       </Head>
       <div className="container">
         <div className="header">
