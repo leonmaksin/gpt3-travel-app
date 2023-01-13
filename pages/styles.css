@@ -368,12 +368,12 @@ textarea {
 
 @media (min-width: 810px) and (max-width: 1199px) {
     .container {
-        max-width: 600px;
+        /* max-width: 600px; */
         width: 100%;
     }
 
     .prompt-container {
-        max-width: 600px;
+        /* max-width: 600px; */
         /* width: 100%; */
     }
 

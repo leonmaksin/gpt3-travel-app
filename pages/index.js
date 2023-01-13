@@ -3,7 +3,7 @@ import Image from 'next/image';
 import leonLogo from '../assets/leon-logo.png';
 import paperPlane from '../assets/paper-plane.png';
 import { useRef, useEffect, useState } from 'react';
-// import LocationChooser from './map.js';
+import { Loader } from "@googlemaps/js-api-loader"
 import useAutosizeTextArea from "./tools/useAutosizeTextArea";
 
 var countries = require("i18n-iso-countries");
@@ -19,6 +19,11 @@ const categoryOptions = [
   "hotel"
 ]
 
+const loader = new Loader({
+  apiKey: "AIzaSyAgjUuppkIs1PUMH5pde3hNl9ACfCJGc4A",
+  // version: "weekly",
+});
+
 const Home = () => {
   const [apiOutput, setApiOutput] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
@@ -29,6 +34,9 @@ const Home = () => {
   const [location, setLocation] = useState(defaultLocation);
   const [marker, setMarker] = useState(null);
   const [map, setMap] = useState(null);
+
+  const textAreaRef = useRef(null);
+  useAutosizeTextArea(textAreaRef.current, locationText);
 
   const callGenerateEndpoint = async () => {
     setIsGenerating(true);
@@ -131,11 +139,12 @@ const Home = () => {
       }
   }, [location]);
 
-  const textAreaRef = useRef(null);
-  useAutosizeTextArea(textAreaRef.current, locationText);
-
   return (
     <div className="root">
+      <Head>
+        {/* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgjUuppkIs1PUMH5pde3hNl9ACfCJGc4A"></script> */}
+        <link rel="icon" type="image/png" href="../paper-plane.png"></link>
+      </Head>
       <div className="container">
         <div className="header">
           <div className="header-title">
@@ -155,7 +164,7 @@ const Home = () => {
               onChange = { (event) => setCategory(event.target.value) }
             >
               { categoryOptions.map( (category) => {
-                return <option value={category}>{category}</option>
+                return <option key={category} value={category}>{category}</option>
               }) }
             </select>
             <span> recommendations in </span>
@@ -164,7 +173,7 @@ const Home = () => {
               value={locationText}
               onChange={ (event) => setLocationText(event.target.value) }
               ref={textAreaRef}
-              maxlength="50"
+              maxLength="50"
             />
             <div className="prompt-buttons">
               <a
