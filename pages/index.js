@@ -45,27 +45,48 @@ const Home = () => {
     
     console.log("Calling OpenAI...")
 
-    try {
-      const response = await fetch('/api/generate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ aiInput }),
-      });
-
-      const data = await response.json();
+    fetch('/api/generate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ aiInput }),
+    }).then(function (response) {
+      if (response.ok) {
+        return response.json();
+      }
+      throw response;
+    }).then(function (data) {
       const { output } = data;
-
       console.log("OpenAI replied...", output.text);
-  
       setApiOutput(`${output.text}`);
-    } catch (error) {
-      console.log("Error:", error);
-
+      setIsGenerating(false);
+    }).catch(function (error) {
+      console.warn("Error:",error)
       setApiOutput("OpenAI failed to connect, please try again later");
-    }
-    setIsGenerating(false);
+      setIsGenerating(false);
+    })
+
+    // const response = await fetch('/api/generate', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({ aiInput }),
+    // });
+
+    // if (response.ok) {
+    //   const data = await response.json();
+    //   const { output } = data;
+  
+    //   console.log("OpenAI replied...", output.text);
+    //   setApiOutput(`${output.text}`);
+    // } else {
+    //   console.log("Error:", response);
+
+    //   setApiOutput("OpenAI failed to connect, please try again later");
+    // }
+
   }
 
   const getInitialLocation = () => {
