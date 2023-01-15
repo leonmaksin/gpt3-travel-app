@@ -77,7 +77,7 @@ const Home = () => {
     // Search for cities within a 50 kilometer radius of the coordinates
     var radius = 10; // 10 kilometers
     const locationJSON = location//.toJSON()
-    var url = 'http://api.geonames.org/findNearbyPostalCodes?' +
+    var url = 'https://secure.geonames.org/findNearbyPostalCodes?' +
               'lat=' + locationJSON.lat +
               '&lng=' + locationJSON.lng +
               '&radius=' + radius +
