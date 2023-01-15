@@ -5,6 +5,7 @@ body {
     padding: 0;
     font-family: 'Manrope', sans-serif;
     overflow-x: hidden;
+    position: sticky;
 }
 
 .root {
@@ -12,7 +13,6 @@ body {
     place-content: center flex-start;
     align-items: center;
     background-color: #F7D4BC;
-    /* background-image: url('../assets/map-background.png'); */
     background-size: 100% 100%;
     flex-flow: column nowrap;
     gap: 10px;
