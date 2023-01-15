@@ -4,6 +4,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Manrope', sans-serif;
+    overflow-x: hidden;
 }
 
 .root {
@@ -19,6 +20,7 @@ body {
     overflow: auto;
     padding: 0px;
     position: relative;
+    padding-bottom: 50px;
 }
 
 .container {
@@ -269,13 +271,13 @@ textarea {
     filter: grayscale(1);
     transform: none;
     transform-origin: 50% 50% 0px;
-    font-size: 14px;
-    font-weight: 700;
     letter-spacing: -0.5px;
     line-height: 1em;
     color: #fff;
-    padding: 12px;
     text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px;
 }
 
 .badge {
@@ -380,6 +382,11 @@ textarea {
 
     .google-map {
         max-width: 80vw;
+        max-height: 80vw;
+    }
+
+    .badge-container {
+        display: none;
     }
 }
 
