@@ -44,19 +44,27 @@ const Home = () => {
     const aiInput = `Find me ${category} recommendations in ${locationText}`;
     
     console.log("Calling OpenAI...")
-    const response = await fetch('/api/generate', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ aiInput }),
-    });
 
-    const data = await response.json();
-    const { output } = data;
-    console.log("OpenAI replied...", output.text);
+    try {
+      const response = await fetch('/api/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ aiInput }),
+      });
 
-    setApiOutput(`${output.text}`);
+      const data = await response.json();
+      const { output } = data;
+
+      console.log("OpenAI replied...", output.text);
+  
+      setApiOutput(`${output.text}`);
+    } catch (error) {
+      console.log("Error:", error);
+
+      setApiOutput("OpenAI failed to connect, please try again later");
+    }
     setIsGenerating(false);
   }
 
@@ -104,6 +112,9 @@ const Home = () => {
   }
 
   useEffect(() => {
+    // get the initial location
+    getInitialLocation();
+
     // create a new map
     const map = new google.maps.Map(mapContainer.current, {
         center: location,
@@ -126,10 +137,6 @@ const Home = () => {
         setLocation(event.latLng.toJSON());
     });
   }, []); // the empty array ensures that the effect only runs once
-
-  useEffect(() => {
-      getInitialLocation();
-  }, []);
 
   useEffect(() => {
       if (marker && map) {
