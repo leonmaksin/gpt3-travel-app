@@ -366,39 +366,24 @@ textarea {
     color: rgba(255, 255, 255, 0.5);
 }
 
-@media (min-width: 810px) and (max-width: 1199px) {
+.google-map {
+    height: 400px;
+    width: 400px;
+    border-radius: 10px;
+    opacity: 80%;
+}
+
+@media (max-width: 450px) {
     .container {
-        /* max-width: 600px; */
-        width: 100%;
+        max-width: 80vw;
     }
 
-    .prompt-container {
-        /* max-width: 600px; */
-        /* width: 100%; */
-    }
-
-    .prompt-box {
-        width: 100%;
+    .google-map {
+        max-width: 80vw;
     }
 }
 
-@media (max-width: 809px) {
-    .container {
-        max-width: 500px;
-        width: 100%;
-    }
-
-    .prompt-container {
-        max-width: 500px;
-        width: 100%;
-    }
-
-    .prompt-box {
-        width: 100%;
-    }
-}
-
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
     .container {
         max-width: 400px;
         width: 100%;
@@ -428,7 +413,7 @@ textarea {
     .prompt-box {
         width: 100%;
     }
-}
+} */
 
 
 
@@ -452,11 +437,6 @@ textarea {
     100% {
         transform: rotate(360deg);
     }
-}
-
-.google-map {
-    border-radius: 10px;
-    opacity: 80%;
 }
 
 .output-text {

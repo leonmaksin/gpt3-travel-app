@@ -66,27 +66,6 @@ const Home = () => {
       setApiOutput("OpenAI failed to connect, please try again later");
       setIsGenerating(false);
     })
-
-    // const response = await fetch('/api/generate', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({ aiInput }),
-    // });
-
-    // if (response.ok) {
-    //   const data = await response.json();
-    //   const { output } = data;
-  
-    //   console.log("OpenAI replied...", output.text);
-    //   setApiOutput(`${output.text}`);
-    // } else {
-    //   console.log("Error:", response);
-
-    //   setApiOutput("OpenAI failed to connect, please try again later");
-    // }
-
   }
 
   const getInitialLocation = () => {
@@ -182,7 +161,7 @@ const Home = () => {
             <h2>Let GPT-3 find you things to do and places to see anywhere! Use when traveling, or even in your home town 😁</h2>
           </div>
         </div>
-        <div ref={mapContainer} style={{ width: '400px', height: '400px' }} className="google-map" />
+        <div ref={mapContainer} className="google-map" />
         <div className="prompt-container">
           <div className="prompt-box">
             <span>Find me </span>
