@@ -118,7 +118,8 @@ const Home = () => {
     // create a new map
     const map = new google.maps.Map(mapContainer.current, {
         center: location,
-        zoom: 8
+        zoom: 8,
+        disableDefaultUI: true
     });
 
     // create a new marker
