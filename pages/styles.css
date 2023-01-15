@@ -375,7 +375,7 @@ textarea {
     opacity: 80%;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 500px) {
     .container {
         max-width: 80vw;
     }
