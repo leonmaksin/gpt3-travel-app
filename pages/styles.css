@@ -216,7 +216,8 @@ textarea {
     border-color: rgba(255, 255, 255, 0.1);
     border-width: 1px;
     border-style: solid;
-    background-color: rgba(255, 255, 255, 0.05);
+    /* background-color: rgba(255, 255, 255, 0.05); */
+    background-color: rgba(255, 255, 255, 0.4);
     border-radius: 10px;
     display: flex;
     flex: 0 0 auto;
