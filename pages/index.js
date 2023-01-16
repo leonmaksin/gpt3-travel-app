@@ -27,6 +27,8 @@ const loader = new Loader({
 const Home = () => {
   const [apiOutput, setApiOutput] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isLong, setIsLong] = useState(true);
+  const [outLength, setOutLength] = useState(0);
   const [category, setCategory] = useState('travel');
   const [locationText, setLocationText] = useState('');
 
@@ -147,6 +149,12 @@ const Home = () => {
       }
   }, [location]);
 
+  useEffect(() => {
+    const len = apiOutput.split(' ').length;
+    setIsLong(len >= 150);
+    setOutLength(len)
+  }, [apiOutput]);
+
   return (
     <div className="root">
       <Head>
@@ -200,6 +208,9 @@ const Home = () => {
           <p className="output-text">Sure! I've thought up a few options:</p>
           <p className="output-text">{apiOutput}</p>
         </div>
+        )}
+        {isLong && (
+          <p className="long-text">output is limited to {outLength} words</p>
         )}
       </div>
       <div className="badge-container grow">

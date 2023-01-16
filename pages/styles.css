@@ -453,3 +453,9 @@ textarea {
 .output-text {
     margin: 0px;
 }
+
+.long-text {
+    font-size: 14px;
+    margin: 0px;
+    color:#2c1a1d81;
+}
